@@ -5,12 +5,13 @@ window.addEventListener("load", function() {
 	video.autoplay = false
 	video.loop = false
 	console.log("The current volume is " + video.volume)
-	document.querySelector("#volume").innerHTML = video.volume * 100 + "%"
+	// document.querySelector("#volume").innerHTML = video.volume * 100 + "%"
 });
 
 document.querySelector("#play").addEventListener("click", function() {
 	console.log("Play Video");
 	video.play()
+	document.querySelector("#volume").innerHTML = video.volume * 100 + "%"
 });
 
 document.querySelector("#pause").addEventListener("click", function() {
@@ -51,9 +52,15 @@ document.querySelector("#slider").addEventListener("click", function() {
 
 document.querySelector("#skip").addEventListener("click", function() {
 	console.log("The current time is " + video.currentTime)
-	video.currentTime += 15
-	console.log("The new time is " + video.currentTime)
-	video.loop = true
+	if (video.currentTime < video.duration - 15) {
+		video.currentTime += 15
+		console.log("The new time is " + video.currentTime)
+	}
+	else {
+		video.load()
+		video.play()
+		console.log("Starting from the beginning")
+	}
 });
 
 document.querySelector("#vintage").addEventListener("click", function() {
